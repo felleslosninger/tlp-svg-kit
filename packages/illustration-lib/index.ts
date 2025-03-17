@@ -44,6 +44,9 @@ fs.readdir(svgDir, async (err, files) => {
 						expandProps: 'end',
 						typescript: true,
 						replaceAttrValues: {
+							white: 'var(--ds-color-neutral-surface-default)',
+							'#fff': 'var(--ds-color-neutral-surface-default)',
+							'#FFF': 'var(--ds-color-neutral-surface-default)',
 							'#FFFFFF': 'var(--ds-color-neutral-surface-default)',
 							'#1E2B3C': 'var(--ds-color-neutral-base-default)',
 							'#EDCFC5': 'var(--ds-color-neutral-border-subtle)',

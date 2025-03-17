@@ -5,7 +5,7 @@
 	"main": "dist/index.js",
 	"type": "module",
 	"scripts": {
-		"build": "npm run clean && tsc --project tsconfig.json && node tsc-build/index.js && tsc --project tsconfig.react.json && rimraf tsc-build",
+		"build": "npm run clean && tsc --project tsconfig.json && node tsc-build/index.js && tsc --project tsconfig.react.json",
 		"clean": "rimraf dist && rimraf tsc-build"
 	},
 	"keywords": [],
