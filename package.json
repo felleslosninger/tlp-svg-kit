@@ -15,6 +15,7 @@
 	"license": "ISC",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@changesets/cli": "^2.28.1",
 		"@digdir/tlp-config-tsconfig": "^0.0.2",
 		"typescript": "^5.8.2"
 	}
