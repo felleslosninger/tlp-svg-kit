@@ -1,0 +1,53 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"organizeImports": { "enabled": true },
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"ignore": ["**/dist/**", "**/tsconfig.*.json"]
+	},
+	"formatter": { "enabled": true, "indentStyle": "tab" },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"a11y": {
+				"noNoninteractiveElementToInteractiveRole": "off",
+				"useValidAnchor": "off",
+				"useButtonType": "off",
+				"useValidAriaRole": "off",
+				"useValidAriaValues": "off",
+				"useMediaCaption": "off",
+				"useKeyWithClickEvents": "off",
+				"noNoninteractiveTabindex": "off",
+				"useAriaPropsForRole": "off"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "off",
+				"noUnusedImports": "error"
+			},
+			"style": {
+				"useTemplate": "off",
+				"noUnusedTemplateLiteral": "off",
+				"noParameterAssign": "off",
+				"useNumberNamespace": "off",
+				"useSelfClosingElements": "off"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off"
+			}
+		},
+		"ignore": []
+	},
+	"javascript": { "formatter": { "enabled": true, "quoteStyle": "single" } },
+	"css": {
+		"formatter": {
+			"enabled": true,
+			"quoteStyle": "single"
+		}
+	}
+}

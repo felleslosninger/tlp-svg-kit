@@ -1,0 +1,28 @@
+{
+	"name": "@digdir/illustration-lib",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/react/index.js",
+	"type": "module",
+	"scripts": {
+		"build": "npm run clean && tsc && node dist/index.js",
+		"clean": "rimraf dist"
+	},
+	"keywords": [],
+	"author": "digdir",
+	"license": "ISC",
+	"dependencies": {
+		"@svgr/plugin-jsx": "^8.1.0",
+		"@svgr/plugin-prettier": "^8.1.0",
+		"@svgr/plugin-svgo": "^8.1.0",
+		"@types/node": "^22.13.10",
+		"react": "^19.0.0",
+		"rimraf": "^6.0.1"
+	},
+	"devDependencies": {
+		"@svgr/core": "^8.1.0",
+		"typescript": "^5.8.2",
+		"@types/react": "^19.0.8",
+		"@types/react-dom": "^19.0.3"
+	}
+}

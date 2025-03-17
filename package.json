@@ -1,0 +1,21 @@
+{
+	"name": "digdir-bibliotek",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/dist/react/index.js",
+	"type": "module",
+	"scripts": {
+		"build:illustrations": "pnpm run -r --filter @digdir/illustration-lib build",
+		"dev": "pnpm run -r --filter illustrations dev",
+		"lint": "biome lint",
+		"lint:fix": "biome format --write ."
+	},
+	"keywords": [],
+	"author": "digdir",
+	"license": "ISC",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@digdir/tlp-config-tsconfig": "^0.0.2",
+		"typescript": "^5.8.2"
+	}
+}

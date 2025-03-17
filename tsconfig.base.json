@@ -1,0 +1,3 @@
+{
+  "extends": "@digdir/tlp-config-tsconfig",
+}
