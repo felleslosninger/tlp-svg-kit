@@ -40,6 +40,8 @@ jobs:
           version: 10
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
+      - name: Build package
+        run: pnpm run build:illustrations
       - name: Build
         working-directory: ./apps/illustrations
         run: pnpm run build
