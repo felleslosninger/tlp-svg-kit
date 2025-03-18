@@ -6,7 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"build:illustrations": "pnpm run -r --filter @digdir/illustration-lib build",
-		"dev": "pnpm run -r --filter illustrations dev",
+		"dev": "pnpm run -r --filter apps-illustrations dev",
 		"lint": "biome lint",
 		"lint:fix": "biome format --write ."
 	},

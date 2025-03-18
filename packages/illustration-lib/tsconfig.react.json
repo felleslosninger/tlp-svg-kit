@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"outDir": "./dist",
 		"rootDir": "./tsc-build/react",
-		"jsx": "react"
+		"jsx": "react",
+		"sourceMap": false
 	},
   "include": ["./tsc-build/react"]
 }
