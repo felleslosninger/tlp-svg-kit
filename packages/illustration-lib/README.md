@@ -11,7 +11,7 @@ npm install @digdir/illustration-lib
 ### Usage
 
 Make sure theme files with `brand1`, `brand2` and `brand3` are imported in your app.
-```
+```jsx
 import '@digdir/designsystemet-theme/digdir.css';
 ```
 
