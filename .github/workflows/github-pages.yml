@@ -5,8 +5,6 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ['main']
-    paths:
-        - 'apps/illustrations/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -43,6 +41,7 @@ jobs:
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
       - name: Build
+        working-directory: ./apps/illustrations
         run: pnpm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
