@@ -21,7 +21,7 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: yarn
+        run: pnpm install --frozen-lockfile
 
       - name: Set up SSH
         run: |
@@ -41,6 +41,8 @@ jobs:
           git config --global user.email "helpdesk@digdir.no"
 
       - name: Create Release Pull Request
-        uses: changesets/action@v1 
+        uses: changesets/action@v1
+        with:
+          setupGitUser: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
