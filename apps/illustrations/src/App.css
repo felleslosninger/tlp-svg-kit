@@ -5,8 +5,9 @@
 #root {
 	max-width: 1280px;
 	margin: 0 auto;
-	min-height: 900px;
-	max-width: 100%;
+	min-height: 100vh;
+	max-width: 1356px;
+	width: 100%;
 	padding: var(--ds-size-4);
 }
 
@@ -51,7 +52,7 @@
 	border: 1px solid var(--ds-color-neutral-border-default);
 	border-radius: 0.5rem;
 	padding: var(--ds-size-4);
-	background-color: var(--ds-color-neutral-background-default);
+	background-color: var(--ds-color-neutral-surface-tinted);
 	cursor: pointer;
 	display: flex;
 	flex-direction: column;
@@ -96,6 +97,14 @@
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: var(--ds-size-4);
+	max-height: fit-content;
+
+	@media screen and (max-width: 768px) {
+		& {
+			display: flex;
+			flex-direction: column;
+		}
+	}
 }
 
 .svg-grid__modal--info--boxes {
