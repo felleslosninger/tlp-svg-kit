@@ -1,16 +1,18 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import '@digdir/designsystemet-theme/digdir.css';
-/* @ts-expect-error TS2307 */
+import '@digdir/designsystemet-css/theme.css';
 import '@digdir/designsystemet-css';
-import App from './App.tsx';
+import App from './app.tsx';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
 	createRoot(rootElement).render(
 		<StrictMode>
-			<App />
+			<BrowserRouter basename="/tlp-svg-kit">
+				<App />
+			</BrowserRouter>
 		</StrictMode>,
 	);
 } else {

@@ -10,12 +10,12 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@digdir/designsystemet-css": "1.0.2",
-		"@digdir/designsystemet-react": "1.0.2",
-		"@digdir/designsystemet-theme": "1.0.2",
+		"@digdir/designsystemet-css": "1.11.1",
+		"@digdir/designsystemet-react": "1.11.1",
 		"@digdir/illustration-lib": "workspace:*",
 		"react": "^19.2.4",
-		"react-dom": "^19.2.4"
+		"react-dom": "^19.2.4",
+		"react-router-dom": "^7.13.0"
 	},
 	"devDependencies": {
 		"@types/react": "^19.2.13",

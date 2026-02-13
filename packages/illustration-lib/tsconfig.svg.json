@@ -1,11 +1,10 @@
 {
 	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"outDir": "./dist/react",
-		"rootDir": "./tsc-build/react",
-		"jsx": "react",
+		"outDir": "./dist/svg",
+		"rootDir": "./tsc-build/svg",
 		"declaration": true,
 		"sourceMap": false
 	},
-	"include": ["./tsc-build/react"]
+	"include": ["./tsc-build/svg"]
 }
