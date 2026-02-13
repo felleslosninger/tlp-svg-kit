@@ -6,11 +6,12 @@ export default function Header() {
 		<header className="site-header">
 			<div className="site-header__logo">
 				<NavLink to="/">
-					<img
+					{/* <img
 						className="site-header__logo-img"
 						alt="TLP SVG Kit Logo"
 						src={`${import.meta.env.BASE_URL}logo.svg`}
-					/>
+					/> */}
+					Illustration lib
 				</NavLink>
 			</div>
 			<nav className="site-header__nav">
