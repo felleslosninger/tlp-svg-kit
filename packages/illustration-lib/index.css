@@ -12,10 +12,10 @@ body,
 }
 
 [data-color-scheme='dark'] {
-	--tlp-svg-color-1: #828282;
-	--tlp-svg-color-2: #6d7885;
-	--tlp-svg-color-3: #edcfc5;
-	--tlp-svg-color-4: #7a292c;
-	--tlp-svg-color-5: #c6a862;
-	--tlp-svg-color-6: #1e5b89;
+	--tlp-svg-color-1: #212121;
+	--tlp-svg-color-2: #a5a5a5;
+	--tlp-svg-color-3: #e8e8e8;
+	--tlp-svg-color-4: #b53237;
+	--tlp-svg-color-5: #dea138;
+	--tlp-svg-color-6: #005ea5;
 }
