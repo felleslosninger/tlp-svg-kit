@@ -35,6 +35,9 @@ importers:
       '@digdir/designsystemet-react':
         specifier: 1.11.1
         version: 1.11.1(@types/react@19.2.13)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@digdir/designsystemet-types':
+        specifier: ^1.11.1
+        version: 1.11.1
       '@digdir/illustration-lib':
         specifier: workspace:*
         version: link:../../packages/illustration-lib

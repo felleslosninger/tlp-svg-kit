@@ -8,7 +8,7 @@ function App() {
 	return (
 		<div className="app-layout">
 			<Header />
-			<main className="app-main">
+			<main className="app-main" data-color="neutral">
 				<Routes>
 					<Route path="/" element={<Navigate to="/illustrations" replace />} />
 					<Route path="/illustrations" element={<IllustrationsPage />} />

@@ -55,7 +55,7 @@ export default function DetailPanel({ title, Svg, onClose }: DetailPanelProps) {
 	};
 
 	return (
-		<aside className="detail-panel">
+		<aside className="detail-panel" id="detail-panel" tabIndex={-1}>
 			<div className="detail-panel__header">
 				<Heading level={2} data-size="sm">
 					{title}
