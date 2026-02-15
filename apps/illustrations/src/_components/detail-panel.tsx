@@ -1,5 +1,5 @@
 import { Button, Card, Heading } from '@digdir/designsystemet-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { ComponentType, SVGProps } from 'react';
 import { renderToString } from 'react-dom/server';
 
@@ -37,10 +37,25 @@ export type DetailPanelProps = {
 	title: string;
 	Svg: ComponentType<SVGProps<SVGSVGElement>>;
 	onClose: () => void;
+	triggerRef?: React.RefObject<HTMLButtonElement | null>;
 };
 
-export default function DetailPanel({ title, Svg, onClose }: DetailPanelProps) {
+export default function DetailPanel({
+	title,
+	Svg,
+	onClose,
+	triggerRef,
+}: DetailPanelProps) {
 	const [copied, setCopied] = useState<string | null>(null);
+	const [announcement, setAnnouncement] = useState('');
+	const panelRef = useRef<HTMLElement>(null);
+
+	const handleClose = () => {
+		onClose();
+		setTimeout(() => {
+			triggerRef?.current?.focus();
+		}, 0);
+	};
 
 	const svgString = renderToString(<Svg />);
 	const lightModeSvg = replaceColorsInSvg(svgString, lightModeColors);
@@ -51,11 +66,25 @@ export default function DetailPanel({ title, Svg, onClose }: DetailPanelProps) {
 	const handleCopy = async (text: string, label: string) => {
 		await navigator.clipboard.writeText(text);
 		setCopied(label);
-		setTimeout(() => setCopied(null), 2000);
+		setAnnouncement(
+			`${label === 'react' ? 'React import' : `${label} mode SVG`} kopiert til utklippstavlen`,
+		);
+		setTimeout(() => {
+			setCopied(null);
+			setAnnouncement('');
+		}, 2000);
 	};
 
 	return (
-		<aside className="detail-panel" id="detail-panel" tabIndex={-1}>
+		<aside
+			className="detail-panel"
+			id="detail-panel"
+			tabIndex={-1}
+			ref={panelRef}
+		>
+			<div className="ds-sr-only" aria-live="polite" aria-atomic="true">
+				{announcement}
+			</div>
 			<div className="detail-panel__header">
 				<Heading level={2} data-size="sm">
 					{title}
@@ -63,10 +92,10 @@ export default function DetailPanel({ title, Svg, onClose }: DetailPanelProps) {
 				<Button
 					variant="tertiary"
 					data-size="sm"
-					onClick={onClose}
-					aria-label="Close panel"
+					onClick={handleClose}
+					aria-label="Lukk panel"
 				>
-					✕
+					<span aria-hidden="true">✕</span>
 				</Button>
 			</div>
 

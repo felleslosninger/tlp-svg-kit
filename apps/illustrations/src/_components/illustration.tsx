@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { type ReactNode, forwardRef } from 'react';
 
 export type IllustrationProps = {
 	children?: ReactNode;
@@ -15,35 +15,37 @@ function skipToDetails() {
 	}
 }
 
-export default function Illustration({
-	children,
-	title,
-	isSelected,
-	onClick,
-}: IllustrationProps) {
-	return (
-		<div className="svg-grid__item-wrapper">
-			<button
-				type="button"
-				className="svg-grid__item ds-focus"
-				aria-label={`Select ${title}`}
-				aria-pressed={isSelected}
-				data-color={isSelected ? 'accent' : 'neutral'}
-				onClick={onClick}
-			>
-				{children}
-				<span>{title}</span>
-			</button>
-			{isSelected && (
+const Illustration = forwardRef<HTMLButtonElement, IllustrationProps>(
+	({ children, title, isSelected, onClick }, ref) => {
+		return (
+			<div className="svg-grid__item-wrapper">
 				<button
+					ref={ref}
 					type="button"
-					className="skip-to-panel"
-					data-color="neutral"
-					onClick={skipToDetails}
+					className="svg-grid__item ds-focus"
+					aria-label={`Velg ${title}`}
+					aria-pressed={isSelected}
+					data-color={isSelected ? 'accent' : 'neutral'}
+					onClick={onClick}
 				>
-					Skip to details
+					{children}
+					<span>{title}</span>
 				</button>
-			)}
-		</div>
-	);
-}
+				{isSelected && (
+					<button
+						type="button"
+						className="skip-to-panel"
+						data-color="neutral"
+						onClick={skipToDetails}
+					>
+						Hopp til detaljer
+					</button>
+				)}
+			</div>
+		);
+	},
+);
+
+Illustration.displayName = 'Illustration';
+
+export default Illustration;

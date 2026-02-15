@@ -58,6 +58,11 @@
 	}
 }
 
+.results-count {
+	color: var(--ds-color-neutral-text-subtle);
+	font-size: var(--ds-font-size-sm);
+	margin: 0 0 var(--ds-size-4) 0;
+}
 .svg-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
