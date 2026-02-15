@@ -7,11 +7,13 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "biome lint",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"build:theme": "designsystemet tokens create --config ./designsystemet.config.json && designsystemet tokens build --config ./designsystemet.config.json"
 	},
 	"dependencies": {
 		"@digdir/designsystemet-css": "1.11.1",
 		"@digdir/designsystemet-react": "1.11.1",
+		"@digdir/designsystemet": "1.11.1",
 		"@digdir/illustration-lib": "workspace:*",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",

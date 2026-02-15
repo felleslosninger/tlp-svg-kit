@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import './index.css';
-import '@digdir/designsystemet-css/theme.css';
+import '../design-tokens-build/digdir.css';
 import '@digdir/designsystemet-css';
 import App from './app.tsx';
 

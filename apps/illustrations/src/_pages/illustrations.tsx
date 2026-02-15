@@ -1,4 +1,4 @@
-import { Search } from '@digdir/designsystemet-react';
+import { Field, Label, Search } from '@digdir/designsystemet-react';
 import { useState } from 'react';
 import type { ComponentType, SVGProps } from 'react';
 import DetailPanel from '../_components/detail-panel';
@@ -28,14 +28,16 @@ export default function IllustrationsPage() {
 					</pre>
 				</div>
 				<div className="search-controls">
-					<Search>
-						<Search.Input
-							placeholder="Search illustrations..."
-							value={searchValue}
-							onChange={(e) => setSearchValue(e.target.value)}
-						/>
-						<Search.Clear onClick={() => setSearchValue('')} />
-					</Search>
+					<Field>
+						<Label>Search illustrations</Label>
+						<Search>
+							<Search.Input
+								value={searchValue}
+								onChange={(e) => setSearchValue(e.target.value)}
+							/>
+							<Search.Clear onClick={() => setSearchValue('')} />
+						</Search>
+					</Field>
 				</div>
 				<div className="svg-grid">
 					{Object.entries(AllSvgs).map(([name, Svg]) => {
