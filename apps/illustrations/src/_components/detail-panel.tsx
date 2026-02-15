@@ -14,12 +14,12 @@ const lightModeColors: Record<string, string> = {
 };
 
 const darkModeColors: Record<string, string> = {
-	'var(--tlp-svg-color-1)': '#828282',
-	'var(--tlp-svg-color-2)': '#6d7885',
-	'var(--tlp-svg-color-3)': '#edcfc5',
-	'var(--tlp-svg-color-4)': '#7a292c',
-	'var(--tlp-svg-color-5)': '#c6a862',
-	'var(--tlp-svg-color-6)': '#1e5b89',
+	'var(--tlp-svg-color-1)': '#212121',
+	'var(--tlp-svg-color-2)': '#a5a5a5',
+	'var(--tlp-svg-color-3)': '#e8e8e8',
+	'var(--tlp-svg-color-4)': '#b53237',
+	'var(--tlp-svg-color-5)': '#dea138',
+	'var(--tlp-svg-color-6)': '#005ea5',
 };
 
 function replaceColorsInSvg(
