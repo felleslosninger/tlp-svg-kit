@@ -76,7 +76,7 @@
 	border: 1px solid var(--ds-color-border-default);
 	border-radius: 0.5rem;
 	padding: var(--ds-size-4);
-	background-color: var(--ds-color-surface-tinted);
+	background-color: var(--ds-color-background-tinted);
 	cursor: pointer;
 	display: flex;
 	flex-direction: column;
