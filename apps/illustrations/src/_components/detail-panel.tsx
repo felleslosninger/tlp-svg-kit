@@ -17,9 +17,9 @@ const darkModeColors: Record<string, string> = {
 	'var(--tlp-svg-color-1)': '#ffffff',
 	'var(--tlp-svg-color-2)': '#384a5e',
 	'var(--tlp-svg-color-3)': '#f9e8e8',
-	'var(--tlp-svg-color-4)': '#d67673',
-	'var(--tlp-svg-color-5)': '#dfae35',
-	'var(--tlp-svg-color-6)': '#5da0f7',
+	'var(--tlp-svg-color-4)': '#f45f63',
+	'var(--tlp-svg-color-5)': '#e5aa20',
+	'var(--tlp-svg-color-6)': '#1e98f5',
 };
 
 function replaceColorsInSvg(
