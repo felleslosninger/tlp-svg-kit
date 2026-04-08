@@ -77,27 +77,19 @@ export default function IconDetailPanel({
 
 			<div className="icon-detail-panel__content">
 				<Card className="icon-detail-panel__preview" data-color="neutral">
-					<span className="icon-detail-panel__preview-label">Live preview</span>
-					<div className="icon-detail-panel__preview-grid">
-						<div className="icon-detail-panel__preview-cell">
-							<span>Neutral</span>
-							<div style={{ color: 'var(--ds-color-neutral-text-default)' }}>
-								<Icon />
-							</div>
-						</div>
-						<div className="icon-detail-panel__preview-cell">
-							<span>Accent</span>
-							<div style={{ color: 'var(--ds-color-accent-text-default)' }}>
-								<Icon />
-							</div>
-						</div>
-						<div className="icon-detail-panel__preview-cell">
-							<span>Inverted</span>
-							<div className="icon-detail-panel__inverted-preview">
-								<Icon />
-							</div>
-						</div>
+					<div
+						className="icon-detail-panel__preview-cell"
+						data-color-scheme="light"
+					>
+						<Icon />
 					</div>
+					<Button
+						variant="tertiary"
+						data-size="sm"
+						onClick={() => handleCopy(svgString, 'Raw SVG')}
+					>
+						{copied === 'Raw SVG' ? 'Copied!' : 'Copy'}
+					</Button>
 				</Card>
 
 				<Card className="icon-detail-panel__meta" data-color="neutral">
@@ -105,10 +97,9 @@ export default function IconDetailPanel({
 						Metadata
 					</Heading>
 					<ul>
-						<li>ViewBox: {stats.viewBox}</li>
-						<li>Path elements: {stats.pathCount}</li>
-						<li>Stroke attributes: {stats.strokeCount}</li>
-						<li>Color mode: currentColor</li>
+						<li>Ikkje bruk i brødtekst</li>
+						<li>Ikkje bruk i brødtekst</li>
+						<li>Ikkje bruk i brødtekst</li>
 					</ul>
 				</Card>
 
@@ -156,22 +147,6 @@ export default function IconDetailPanel({
 							onClick={() => handleCopy(usageCode, 'Usage snippet')}
 						>
 							{copied === 'Usage snippet' ? 'Copied!' : 'Copy'}
-						</Button>
-					</div>
-				</div>
-
-				<div className="icon-detail-panel__code">
-					<Heading level={3} data-size="2xs">
-						Raw SVG
-					</Heading>
-					<div className="icon-detail-panel__code-row">
-						<pre>{svgString}</pre>
-						<Button
-							variant="tertiary"
-							data-size="sm"
-							onClick={() => handleCopy(svgString, 'Raw SVG')}
-						>
-							{copied === 'Raw SVG' ? 'Copied!' : 'Copy'}
 						</Button>
 					</div>
 				</div>

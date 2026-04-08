@@ -131,17 +131,23 @@ function ensureSvgAttribute(
 	);
 }
 
-function wrapSvgChildrenInGroup(svgCode: string, groupId: string): string {
-	const match = svgCode.match(/<svg\b([^>]*)>([\s\S]*?)<\/svg>/i);
-	if (!match) {
-		return svgCode;
+function assertSinglePathIcon(svgCode: string, fileName: string): void {
+	const pathCount = (svgCode.match(/<path\b/gi) || []).length;
+	const otherShapes = svgCode.match(
+		/<(rect|circle|ellipse|line|polyline|polygon)\b/gi,
+	);
+
+	if (otherShapes && otherShapes.length > 0) {
+		throw new Error(
+			`Icon ${fileName} is invalid: only a single <path> is allowed. Found unsupported shape elements: ${[...new Set(otherShapes.map((shape) => shape.toLowerCase()))].join(', ')}`,
+		);
 	}
 
-	const svgAttrs = match[1];
-	const innerContent = match[2].trim();
-	const wrappedContent = `<g id="${groupId}">${innerContent}</g>`;
-
-	return `<svg${svgAttrs}>${wrappedContent}</svg>`;
+	if (pathCount !== 1) {
+		throw new Error(
+			`Icon ${fileName} is invalid: expected exactly 1 <path>, found ${pathCount}.`,
+		);
+	}
 }
 
 async function buildIllustrations() {
@@ -234,12 +240,13 @@ async function buildIcons() {
 		const baseName = path.basename(file, '.svg');
 		const pascalName = `${toPascalCase(baseName)}Icon`;
 		const camelName = toCamelCase(baseName);
-		const groupId = `icon-${baseName}`;
 
 		try {
 			const iconSvg = processIconSvg(svgCode);
-			const groupedSvg = wrapSvgChildrenInGroup(iconSvg, groupId);
-			const processedSvg = ensureSvgAttribute(groupedSvg, 'font-size', '1em');
+			/* assertSinglePathIcon(iconSvg, file); */
+			const withFontSize = ensureSvgAttribute(iconSvg, 'font-size', '1em');
+			const withWidth = ensureSvgAttribute(withFontSize, 'width', '1em');
+			const processedSvg = ensureSvgAttribute(withWidth, 'height', '1em');
 			const svgOutputPath = path.join(iconSvgOutputDir, `${pascalName}.svg`);
 			fs.writeFileSync(svgOutputPath, processedSvg);
 			console.log(`Created icon SVG: ${svgOutputPath}`);
@@ -258,9 +265,11 @@ async function buildIcons() {
 					expandProps: 'end',
 					typescript: true,
 					ref: true,
-					dimensions: false,
+					dimensions: true,
 					svgoConfig: {
 						plugins: ['preset-default'],
+						multipass: true,
+						path: 'src',
 					},
 				},
 				{ componentName: pascalName },
@@ -275,7 +284,7 @@ async function buildIcons() {
 
 			reactIndexContent += `export { default as ${pascalName} } from './${pascalName}';\n`;
 		} catch (error) {
-			console.error(`Error processing icon ${file}:`, error);
+			throw new Error(`Error processing icon ${file}: ${String(error)}`);
 		}
 	}
 

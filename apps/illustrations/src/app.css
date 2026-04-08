@@ -424,11 +424,6 @@
 		font-size: 0.72rem;
 		color: var(--ds-color-neutral-text-subtle);
 	}
-
-	& svg {
-		width: 1.8rem;
-		height: 1.8rem;
-	}
 }
 
 .icon-detail-panel__inverted-preview {
