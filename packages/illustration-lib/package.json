@@ -17,6 +17,18 @@
 			"types": "./dist/svg/index.d.ts",
 			"import": "./dist/svg/index.js"
 		},
+		"./icons": {
+			"types": "./dist/icon-react/index.d.ts",
+			"import": "./dist/icon-react/index.js"
+		},
+		"./icons/react": {
+			"types": "./dist/icon-react/index.d.ts",
+			"import": "./dist/icon-react/index.js"
+		},
+		"./icons/svg": {
+			"types": "./dist/icon-svg/index.d.ts",
+			"import": "./dist/icon-svg/index.js"
+		},
 		"./styles.css": "./index.css"
 	},
 	"files": ["dist", "index.css"],
@@ -29,7 +41,7 @@
 	},
 	"homepage": "https://felleslosninger.github.io/tlp-svg-kit/",
 	"scripts": {
-		"build": "npm run clean && tsc --project tsconfig.json && node tsc-build/index.js && tsc --project tsconfig.react.json && tsc --project tsconfig.svg.json",
+		"build": "npm run clean && tsc --project tsconfig.json && node tsc-build/index.js && tsc --project tsconfig.react.json && tsc --project tsconfig.svg.json && tsc --project tsconfig.icon-react.json && tsc --project tsconfig.icon-svg.json",
 		"clean": "rimraf dist && rimraf tsc-build"
 	},
 	"keywords": [

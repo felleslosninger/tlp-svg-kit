@@ -22,6 +22,20 @@ import { SweatyManHoldsRedBall } from '@digdir/illustration-lib';
 <SweatyManHoldsRedBall />
 ```
 
+Icons are available as React components:
+
+```jsx
+import { BevisIcon } from '@digdir/illustration-lib/icons';
+
+<BevisIcon />
+```
+
+Or as framework-agnostic SVG strings:
+
+```ts
+import { bevis } from '@digdir/illustration-lib/icons/svg';
+```
+
 ## Development
 
 We use pnpm as package manager. To install dependencies, run the following command in the root of the repo:
@@ -30,7 +44,8 @@ We use pnpm as package manager. To install dependencies, run the following comma
 pnpm install
 ```
 
-All components are auto-generated from svg files in `/svgs`. 
+Illustrations are auto-generated from svg files in `/svgs`.
+Icons are auto-generated from svg files in `/icons`.
 To build the components, run the following command:
 
 ```bash

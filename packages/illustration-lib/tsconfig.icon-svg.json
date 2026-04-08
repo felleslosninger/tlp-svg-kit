@@ -1,0 +1,10 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./dist/icon-svg",
+		"rootDir": "./tsc-build/icon-svg",
+		"declaration": true,
+		"sourceMap": false
+	},
+	"include": ["./tsc-build/icon-svg"]
+}

@@ -1,5 +1,6 @@
 import { Field, Label, Search } from '@digdir/designsystemet-react';
 import { useMemo, useRef, useState } from 'react';
+import type { ChangeEvent } from 'react';
 import type { ComponentType, SVGProps } from 'react';
 import DetailPanel from '../_components/detail-panel';
 import Illustration from '../_components/illustration';
@@ -28,6 +29,10 @@ export default function IllustrationsPage() {
 
 	const filteredCount = filteredEntries.length;
 
+	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setSearchValue(e.target.value);
+	};
+
 	return (
 		<div className={`page-layout ${selected ? 'page-layout--panel-open' : ''}`}>
 			<div className="page-content">
@@ -44,10 +49,7 @@ export default function IllustrationsPage() {
 					<Field>
 						<Label>Søk i illustrasjoner</Label>
 						<Search>
-							<Search.Input
-								value={searchValue}
-								onChange={(e) => setSearchValue(e.target.value)}
-							/>
+							<Search.Input value={searchValue} onChange={handleSearchChange} />
 							<Search.Clear onClick={() => setSearchValue('')} />
 						</Search>
 					</Field>

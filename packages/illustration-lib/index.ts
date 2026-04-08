@@ -8,11 +8,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const svgDir = path.resolve(__dirname, '../svgs');
+const iconDir = path.resolve(__dirname, '../icons');
 const reactOutputDir = path.resolve(__dirname, './react');
 const svgOutputDir = path.resolve(__dirname, './svg');
+const iconReactOutputDir = path.resolve(__dirname, './icon-react');
+const iconSvgOutputDir = path.resolve(__dirname, './icon-svg');
 
 fs.mkdirSync(reactOutputDir, { recursive: true });
 fs.mkdirSync(svgOutputDir, { recursive: true });
+fs.mkdirSync(iconReactOutputDir, { recursive: true });
+fs.mkdirSync(iconSvgOutputDir, { recursive: true });
 
 const colorReplacements: Record<string, string> = {
 	white: 'var(--tlp-svg-color-1)',
@@ -52,6 +57,27 @@ function replaceColorsInSvg(svgCode: string): string {
 	return result;
 }
 
+function replaceIconColorsWithCurrentColor(svgCode: string): string {
+	return svgCode.replace(
+		/(fill|stroke)=("|')(.*?)(\2)/gi,
+		(match, attr: string, quote: string, value: string) => {
+			const trimmedValue = value.trim();
+
+			if (
+				trimmedValue === 'none' ||
+				trimmedValue === 'currentColor' ||
+				trimmedValue === 'inherit' ||
+				trimmedValue.startsWith('url(') ||
+				trimmedValue.startsWith('var(')
+			) {
+				return match;
+			}
+
+			return `${attr}=${quote}currentColor${quote}`;
+		},
+	);
+}
+
 function processSvg(svgCode: string): string {
 	const optimized = optimize(svgCode, {
 		plugins: [
@@ -75,8 +101,53 @@ function processSvg(svgCode: string): string {
 	return replaceColorsInSvg(optimized.data);
 }
 
-async function build() {
-	const files = fs.readdirSync(svgDir).filter((f) => f.endsWith('.svg'));
+function processIconSvg(svgCode: string): string {
+	const normalizedColors = replaceIconColorsWithCurrentColor(svgCode);
+	const optimized = optimize(normalizedColors, {
+		plugins: [
+			'preset-default',
+			{
+				name: 'removeAttrs',
+				params: { attrs: ['width', 'height'] },
+			},
+		],
+	});
+
+	return optimized.data;
+}
+
+function ensureSvgAttribute(
+	svgCode: string,
+	attributeName: string,
+	attributeValue: string,
+): string {
+	if (new RegExp(`\\s${attributeName}=`).test(svgCode)) {
+		return svgCode;
+	}
+
+	return svgCode.replace(
+		/<svg\b([^>]*)>/i,
+		`<svg$1 ${attributeName}="${attributeValue}">`,
+	);
+}
+
+function wrapSvgChildrenInGroup(svgCode: string, groupId: string): string {
+	const match = svgCode.match(/<svg\b([^>]*)>([\s\S]*?)<\/svg>/i);
+	if (!match) {
+		return svgCode;
+	}
+
+	const svgAttrs = match[1];
+	const innerContent = match[2].trim();
+	const wrappedContent = `<g id="${groupId}">${innerContent}</g>`;
+
+	return `<svg${svgAttrs}>${wrappedContent}</svg>`;
+}
+
+async function buildIllustrations() {
+	const files = fs
+		.readdirSync(svgDir)
+		.filter((f: string) => f.endsWith('.svg'));
 
 	let reactIndexContent = '';
 	let svgIndexContent =
@@ -146,6 +217,81 @@ async function build() {
 
 	fs.writeFileSync(path.join(svgOutputDir, 'index.ts'), svgIndexContent);
 	console.log('Created svg/index.ts');
+}
+
+async function buildIcons() {
+	const files = fs
+		.readdirSync(iconDir)
+		.filter((f: string) => f.endsWith('.svg'));
+
+	let reactIndexContent = '';
+	let svgIndexContent =
+		'// Framework-agnostic icon SVG strings with currentColor theming\n\n';
+
+	for (const file of files) {
+		const svgPath = path.join(iconDir, file);
+		const svgCode = fs.readFileSync(svgPath, 'utf8');
+		const baseName = path.basename(file, '.svg');
+		const pascalName = `${toPascalCase(baseName)}Icon`;
+		const camelName = toCamelCase(baseName);
+		const groupId = `icon-${baseName}`;
+
+		try {
+			const iconSvg = processIconSvg(svgCode);
+			const groupedSvg = wrapSvgChildrenInGroup(iconSvg, groupId);
+			const processedSvg = ensureSvgAttribute(groupedSvg, 'font-size', '1em');
+			const svgOutputPath = path.join(iconSvgOutputDir, `${pascalName}.svg`);
+			fs.writeFileSync(svgOutputPath, processedSvg);
+			console.log(`Created icon SVG: ${svgOutputPath}`);
+
+			svgIndexContent += `export const ${camelName} = \`${processedSvg.replace(/`/g, '\\`')}\`;\n`;
+
+			const jsCode = await transform(
+				processedSvg,
+				{
+					plugins: [
+						'@svgr/plugin-svgo',
+						'@svgr/plugin-jsx',
+						'@svgr/plugin-prettier',
+					],
+					icon: true,
+					expandProps: 'end',
+					typescript: true,
+					ref: true,
+					dimensions: false,
+					svgoConfig: {
+						plugins: ['preset-default'],
+					},
+				},
+				{ componentName: pascalName },
+			);
+
+			const reactOutputPath = path.join(
+				iconReactOutputDir,
+				`${pascalName}.tsx`,
+			);
+			fs.writeFileSync(reactOutputPath, jsCode);
+			console.log(`Created icon React component: ${reactOutputPath}`);
+
+			reactIndexContent += `export { default as ${pascalName} } from './${pascalName}';\n`;
+		} catch (error) {
+			console.error(`Error processing icon ${file}:`, error);
+		}
+	}
+
+	fs.writeFileSync(
+		path.join(iconReactOutputDir, 'index.ts'),
+		reactIndexContent,
+	);
+	console.log('Created icon-react/index.ts');
+
+	fs.writeFileSync(path.join(iconSvgOutputDir, 'index.ts'), svgIndexContent);
+	console.log('Created icon-svg/index.ts');
+}
+
+async function build() {
+	await buildIllustrations();
+	await buildIcons();
 }
 
 build().catch(console.error);

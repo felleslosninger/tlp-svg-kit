@@ -16,7 +16,7 @@ export default function Header() {
 			<nav className="site-header__nav">
 				<NavLink
 					to="/illustrations"
-					className={({ isActive }) =>
+					className={({ isActive }: { isActive: boolean }) =>
 						isActive
 							? 'site-header__link site-header__link--active'
 							: 'site-header__link'
@@ -24,16 +24,16 @@ export default function Header() {
 				>
 					Illustrations
 				</NavLink>
-				{/* Icons link hidden for now
 				<NavLink
 					to="/icons"
-					className={({ isActive }) =>
-						isActive ? 'site-header__link site-header__link--active' : 'site-header__link'
+					className={({ isActive }: { isActive: boolean }) =>
+						isActive
+							? 'site-header__link site-header__link--active'
+							: 'site-header__link'
 					}
 				>
 					Icons
 				</NavLink>
-				*/}
 			</nav>
 		</header>
 	);

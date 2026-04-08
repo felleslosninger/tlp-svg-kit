@@ -1,0 +1,11 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./dist/icon-react",
+		"rootDir": "./tsc-build/icon-react",
+		"jsx": "react",
+		"declaration": true,
+		"sourceMap": false
+	},
+	"include": ["./tsc-build/icon-react"]
+}
