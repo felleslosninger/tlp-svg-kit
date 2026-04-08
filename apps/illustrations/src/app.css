@@ -419,6 +419,7 @@
 	align-items: center;
 	justify-content: center;
 	min-height: 82px;
+	font-size: 80px;
 
 	& span {
 		font-size: 0.72rem;
