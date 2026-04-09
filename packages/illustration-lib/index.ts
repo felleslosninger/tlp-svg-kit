@@ -116,40 +116,6 @@ function processIconSvg(svgCode: string): string {
 	return optimized.data;
 }
 
-function ensureSvgAttribute(
-	svgCode: string,
-	attributeName: string,
-	attributeValue: string,
-): string {
-	if (new RegExp(`\\s${attributeName}=`).test(svgCode)) {
-		return svgCode;
-	}
-
-	return svgCode.replace(
-		/<svg\b([^>]*)>/i,
-		`<svg$1 ${attributeName}="${attributeValue}">`,
-	);
-}
-
-function assertSinglePathIcon(svgCode: string, fileName: string): void {
-	const pathCount = (svgCode.match(/<path\b/gi) || []).length;
-	const otherShapes = svgCode.match(
-		/<(rect|circle|ellipse|line|polyline|polygon)\b/gi,
-	);
-
-	if (otherShapes && otherShapes.length > 0) {
-		throw new Error(
-			`Icon ${fileName} is invalid: only a single <path> is allowed. Found unsupported shape elements: ${[...new Set(otherShapes.map((shape) => shape.toLowerCase()))].join(', ')}`,
-		);
-	}
-
-	if (pathCount !== 1) {
-		throw new Error(
-			`Icon ${fileName} is invalid: expected exactly 1 <path>, found ${pathCount}.`,
-		);
-	}
-}
-
 async function buildIllustrations() {
 	const files = fs
 		.readdirSync(svgDir)
@@ -243,18 +209,14 @@ async function buildIcons() {
 
 		try {
 			const iconSvg = processIconSvg(svgCode);
-			/* assertSinglePathIcon(iconSvg, file); */
-			const withFontSize = ensureSvgAttribute(iconSvg, 'font-size', '1em');
-			const withWidth = ensureSvgAttribute(withFontSize, 'width', '1em');
-			const processedSvg = ensureSvgAttribute(withWidth, 'height', '1em');
 			const svgOutputPath = path.join(iconSvgOutputDir, `${pascalName}.svg`);
-			fs.writeFileSync(svgOutputPath, processedSvg);
+			fs.writeFileSync(svgOutputPath, iconSvg);
 			console.log(`Created icon SVG: ${svgOutputPath}`);
 
-			svgIndexContent += `export const ${camelName} = \`${processedSvg.replace(/`/g, '\\`')}\`;\n`;
+			svgIndexContent += `export const ${camelName} = \`${iconSvg.replace(/`/g, '\\`')}\`;\n`;
 
 			const jsCode = await transform(
-				processedSvg,
+				iconSvg,
 				{
 					plugins: [
 						'@svgr/plugin-svgo',
@@ -267,7 +229,20 @@ async function buildIcons() {
 					ref: true,
 					dimensions: true,
 					svgoConfig: {
-						plugins: ['preset-default'],
+						plugins: [
+							'preset-default', // https://svgo.dev/docs/preset-default/
+							{
+								name: 'addAttributesToSVGElement',
+								params: {
+									attributes: [
+										{ fill: 'currentColor' },
+										{ width: '1em' },
+										{ height: '1em' },
+										{ 'font-size': '1em' },
+									],
+								},
+							},
+						],
 						multipass: true,
 						path: 'src',
 					},
