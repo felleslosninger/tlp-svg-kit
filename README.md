@@ -1,3 +1,6 @@
+> [!WARNING]
+> This is still a work in progress. Changes WILL happen, and releases will not be done in a structured manner. Use at your own risk.
+
 # Digdir Illustration library
 
 This repo contains SVGs that are transformed into React components when built.
