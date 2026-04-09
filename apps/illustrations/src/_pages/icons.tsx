@@ -38,10 +38,7 @@ export default function IconsPage() {
 		<div className={`page-layout ${selected ? 'page-layout--panel-open' : ''}`}>
 			<div className="page-content">
 				<div className="page-intro page-intro--tight">
-					<p>
-						Klikk pa et ikon for detaljer, metadata og kopiering av
-						import/snippets.
-					</p>
+					<p>Klikk på et ikon for detaljer og kopiering.</p>
 					<pre className="page-intro__code">
 						{
 							"import { BevisIcon } from '@digdir/illustration-lib/icons/react';"
@@ -50,7 +47,7 @@ export default function IconsPage() {
 				</div>
 				<div className="search-controls search-controls--tight">
 					<Field>
-						<Label>Sok i ikoner</Label>
+						<Label>Søk i ikoner</Label>
 						<Search>
 							<Search.Input value={searchValue} onChange={handleSearchChange} />
 							<Search.Clear onClick={() => setSearchValue('')} />

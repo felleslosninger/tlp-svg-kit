@@ -28,8 +28,7 @@ const IconTile = forwardRef<HTMLButtonElement, IconTileProps>(
 					data-color={isSelected ? 'accent' : 'neutral'}
 					onClick={onClick}
 				>
-					<div className="icon-grid__glyph">{children}</div>
-					<span className="icon-grid__name">{name}</span>
+					{children}
 				</button>
 				{isSelected && (
 					<button

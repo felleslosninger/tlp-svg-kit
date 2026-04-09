@@ -1,4 +1,4 @@
-import { Button, Card, Heading } from '@digdir/designsystemet-react';
+import { Button, Card, Heading, List } from '@digdir/designsystemet-react';
 import { useState } from 'react';
 import type { ComponentType, SVGProps } from 'react';
 import { renderToString } from 'react-dom/server';
@@ -9,18 +9,6 @@ export type IconDetailPanelProps = {
 	onClose: () => void;
 	triggerRef?: React.RefObject<HTMLButtonElement | null>;
 };
-
-function getSvgStats(svgString: string) {
-	const pathCount = (svgString.match(/<path\b/gi) || []).length;
-	const strokeCount = (svgString.match(/stroke=/gi) || []).length;
-	const viewBoxMatch = svgString.match(/viewBox=\"([^\"]+)\"/i);
-
-	return {
-		pathCount,
-		strokeCount,
-		viewBox: viewBoxMatch?.[1] ?? 'N/A',
-	};
-}
 
 export default function IconDetailPanel({
 	name,
@@ -44,7 +32,6 @@ export default function IconDetailPanel({
 		.charAt(0)
 		.toLowerCase()}${name.slice(1).replace(/Icon$/, '')} } from '@digdir/illustration-lib/icons/svg';`;
 	const usageCode = `<${name} aria-hidden />`;
-	const stats = getSvgStats(svgString);
 
 	const handleCopy = async (text: string, label: string) => {
 		await navigator.clipboard.writeText(text);
@@ -88,19 +75,19 @@ export default function IconDetailPanel({
 						data-size="sm"
 						onClick={() => handleCopy(svgString, 'Raw SVG')}
 					>
-						{copied === 'Raw SVG' ? 'Copied!' : 'Copy'}
+						{copied === 'Raw SVG' ? 'Kopiert!' : 'Kopier'}
 					</Button>
 				</Card>
 
 				<Card className="icon-detail-panel__meta" data-color="neutral">
 					<Heading level={3} data-size="2xs">
-						Metadata
+						Regler
 					</Heading>
-					<ul>
-						<li>Ikkje bruk i brødtekst</li>
-						<li>Ikkje bruk i brødtekst</li>
-						<li>Ikkje bruk i brødtekst</li>
-					</ul>
+					<List.Unordered data-size="sm">
+						<List.Item>Ikkje bruk i brødtekst</List.Item>
+						<List.Item>Ikkje bruk i brødtekst</List.Item>
+						<List.Item>Ikkje bruk i brødtekst</List.Item>
+					</List.Unordered>
 				</Card>
 
 				<div className="icon-detail-panel__code">
@@ -114,7 +101,7 @@ export default function IconDetailPanel({
 							data-size="sm"
 							onClick={() => handleCopy(reactImportCode, 'React import')}
 						>
-							{copied === 'React import' ? 'Copied!' : 'Copy'}
+							{copied === 'React import' ? 'Kopiert!' : 'Kopier'}
 						</Button>
 					</div>
 				</div>
@@ -130,7 +117,7 @@ export default function IconDetailPanel({
 							data-size="sm"
 							onClick={() => handleCopy(svgImportCode, 'SVG import')}
 						>
-							{copied === 'SVG import' ? 'Copied!' : 'Copy'}
+							{copied === 'SVG import' ? 'Kopiert!' : 'Kopier'}
 						</Button>
 					</div>
 				</div>
@@ -146,7 +133,7 @@ export default function IconDetailPanel({
 							data-size="sm"
 							onClick={() => handleCopy(usageCode, 'Usage snippet')}
 						>
-							{copied === 'Usage snippet' ? 'Copied!' : 'Copy'}
+							{copied === 'Usage snippet' ? 'Kopiert!' : 'Kopier'}
 						</Button>
 					</div>
 				</div>

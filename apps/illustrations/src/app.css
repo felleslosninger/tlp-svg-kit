@@ -304,7 +304,7 @@
 
 .icon-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
 	gap: var(--ds-size-2);
 	background-color: transparent;
 }
@@ -320,40 +320,19 @@
 	padding: var(--ds-size-2);
 	background-color: var(--ds-color-background-tinted);
 	cursor: pointer;
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	place-items: center;
 	gap: var(--ds-size-2);
-	min-height: 116px;
+	font-size: 3rem;
+	aspect-ratio: 1 / 1;
 
 	&:hover {
 		background-color: var(--ds-color-surface-hover);
 	}
-
-	& svg {
-		width: 2rem;
-		height: 2rem;
-	}
-}
-
-.icon-grid__glyph {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 48px;
-	color: var(--ds-color-neutral-text-default);
-}
-
-.icon-grid__name {
-	font-size: 0.8rem;
-	line-height: 1.2;
-	text-align: center;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
 }
 
 .icon-detail-panel {
-	width: 420px;
+	max-width: 500px;
 	flex-shrink: 0;
 	background-color: var(--ds-color-neutral-surface-default);
 	border: 1px solid var(--ds-color-neutral-border-default);
@@ -395,22 +374,7 @@
 	gap: var(--ds-size-2);
 }
 
-.icon-detail-panel__preview-label {
-	font-size: 0.75rem;
-	font-weight: 600;
-	letter-spacing: 0.04em;
-	text-transform: uppercase;
-	color: var(--ds-color-neutral-text-subtle);
-}
-
-.icon-detail-panel__preview-grid {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: var(--ds-size-2);
-}
-
 .icon-detail-panel__preview-cell {
-	border: 1px solid var(--ds-color-neutral-border-subtle);
 	border-radius: 0.4rem;
 	padding: var(--ds-size-2);
 	display: flex;
@@ -418,23 +382,7 @@
 	gap: var(--ds-size-1);
 	align-items: center;
 	justify-content: center;
-	min-height: 82px;
 	font-size: 80px;
-
-	& span {
-		font-size: 0.72rem;
-		color: var(--ds-color-neutral-text-subtle);
-	}
-}
-
-.icon-detail-panel__inverted-preview {
-	background-color: var(--ds-color-neutral-background-tinted);
-	color: var(--ds-color-neutral-text-default);
-	border-radius: 0.25rem;
-	padding: var(--ds-size-1);
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
 }
 
 .icon-detail-panel__meta {
@@ -442,14 +390,6 @@
 
 	& h3 {
 		margin: 0 0 var(--ds-size-2) 0;
-	}
-
-	& ul {
-		margin: 0;
-		padding-left: 1rem;
-		display: grid;
-		gap: 0.25rem;
-		font-size: 0.85rem;
 	}
 }
 
